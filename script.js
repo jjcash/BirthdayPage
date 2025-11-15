@@ -8,18 +8,14 @@ const mainContent = document.getElementById('main-content');
 const bdaySong = document.getElementById('bday-song');
 
 startButton.addEventListener('click', () => {
-    // 1. Hide the start screen
     startScreen.style.display = 'none';
 
-    // 2. Show the main content
     mainContent.style.display = 'block';
 
-    // 3. Play the music
     bdaySong.play().catch(error => {
         console.error("Autoplay failed:", error);
     });
 
-    // 4. Set the initial background color of the body
     const initialSection = document.querySelector('.scroll-section');
     if (initialSection) {
         const initialColor = initialSection.getAttribute('data-color');
@@ -35,19 +31,18 @@ startButton.addEventListener('click', () => {
 const sections = document.querySelectorAll('.scroll-section');
 
 const observerOptions = {
-    root: null, // relative to the viewport
+    root: null,
     rootMargin: '0px',
-    threshold: 0.5 // trigger when 50% of the section is visible
+    threshold: 0.5
 };
 
 const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const newColor = entry.target.getAttribute('data-color');
-            // Change the body background color smoothly (CSS transition handles smoothness)
+
             document.body.style.backgroundColor = newColor;
 
-            // Optional: Add a class for entry animations
             entry.target.classList.add('is-visible');
         } else {
             entry.target.classList.remove('is-visible');
@@ -64,7 +59,6 @@ sections.forEach(section => {
 // 3. DYNAMIC CAROUSEL INJECTION
 // ====================================================================
 
-// IMPORTANT: Update this array with the exact file names of your images and videos
 const carouselImageFiles = [
     '20250626023931.png',
     '20250626031919.png',
@@ -97,12 +91,10 @@ const carouselImageFiles = [
 const imageDirectory = 'assets/images/genshin/';
 const carouselTrack = document.querySelector('.carousel-track');
 
-// Function to check if the file is a video
 const isVideo = (fileName) => {
     return fileName.toLowerCase().endsWith('.mp4');
 };
 
-// Clear any existing content and inject the images/videos
 if (carouselTrack) {
     carouselTrack.innerHTML = '';
 
@@ -113,7 +105,7 @@ if (carouselTrack) {
             const video = document.createElement('video');
             video.src = filePath;
             video.controls = true;
-            video.muted = true; // Start muted, good practice for autoplay
+            video.muted = true;
             video.alt = `Video for my love: ${fileName}`;
             carouselTrack.appendChild(video);
         } else {
@@ -136,11 +128,9 @@ const prevButton = document.querySelector('.carousel-button.prev');
 const carouselNav = document.querySelector('.carousel-nav');
 
 if (carouselImages.length > 0 && nextButton && prevButton && carouselNav) {
-    // We must recalculate width inside a function for responsive handling
     const getImageWidth = () => carouselImages[0] ? carouselImages[0].getBoundingClientRect().width : 0;
     let currentIndex = 0;
 
-    // Create navigation dots dynamically
     carouselNav.innerHTML = '';
     carouselImages.forEach((_, index) => {
         const dot = document.createElement('button');
@@ -149,7 +139,6 @@ if (carouselImages.length > 0 && nextButton && prevButton && carouselNav) {
         carouselNav.appendChild(dot);
     });
     
-    // Set the first dot as active
     carouselNav.children[0].classList.add('active');
 
     const updateCarouselPosition = () => {
@@ -164,21 +153,18 @@ if (carouselImages.length > 0 && nextButton && prevButton && carouselNav) {
         if (targetDot) targetDot.classList.add('active');
     };
 
-    // When the next button is clicked
     nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % carouselImages.length; // Loop to start
+        currentIndex = (currentIndex + 1) % carouselImages.length;
         updateCarouselPosition();
         updateDots(currentIndex);
     });
 
-    // When the previous button is clicked
     prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length; // Loop to end
+        currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
         updateCarouselPosition();
         updateDots(currentIndex);
     });
 
-    // When a nav dot is clicked
     carouselNav.addEventListener('click', e => {
         if (e.target.classList.contains('carousel-dot')) {
             const targetIndex = parseInt(e.target.getAttribute('data-index'));
@@ -188,26 +174,21 @@ if (carouselImages.length > 0 && nextButton && prevButton && carouselNav) {
         }
     });
     
-    // Optional: Auto-play functionality
     let autoSlideInterval;
     const startAutoSlide = () => {
-        // Clear any existing interval before starting a new one
         clearInterval(autoSlideInterval); 
         autoSlideInterval = setInterval(() => {
-            nextButton.click(); // Programmatically click the next button
-        }, 5000); // Change slide every 5 seconds
+            nextButton.click();
+        }, 5000);
     };
 
     const carouselContainer = document.querySelector('.carousel-container');
     if (carouselContainer) {
-        // Pause auto-play on hover
         carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
         carouselContainer.addEventListener('mouseleave', startAutoSlide);
     }
     
-    // Start auto-play when page loads
     startAutoSlide();
 
-    // Handle window resize to ensure correct position calculation
     window.addEventListener('resize', updateCarouselPosition);
 }
