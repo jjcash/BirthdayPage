@@ -7,8 +7,13 @@
 
 body {
     transition: background-color 1s ease-in-out;
-    font-family: 'Georgia', serif;
+    font-family: 'Open Sans', sans-serif;
     color: #333333;
+}
+
+h1, h2, h3 {
+    font-family: 'Quicksand', sans-serif; /* ⬅️ New Heading Font */
+    font-weight: 700; /* Use a bold weight for impact */
 }
 
 /* =========================================
@@ -188,12 +193,50 @@ body {
     margin-right: auto;
 }
 
+.signature p {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600; /* Use a semi-bold weight for emphasis */
+}
+
+.download-button {
+    /* Style it like a button */
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 40px;
+    
+    /* Colors from your theme */
+    background-color: #F8BBD0; /* Accent Pink */
+    color: white; 
+    
+    /* Text and border cleanup */
+    text-decoration: none; /* Remove underline */
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    
+    /* Animation and effect */
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.download-button:hover {
+    background-color: #E9A8C1; /* Slightly darker pink on hover */
+    transform: translateY(-2px); /* Lift button slightly for click feedback */
+}
+
 /* =========================================
    6. MOBILE RESPONSIVENESS (Media Query)
    ========================================= */
 
 @media (max-width: 768px) {
     
+    .download-button {
+        /* Ensure the button is big enough for easy clicking on mobile */
+        padding: 12px 20px;
+        font-size: 1em;
+        /* Prevent the button from getting too large on small screens */
+        max-width: 90%; 
+    }
+
     /* 6.1 General Padding/Text */
     .scroll-section {
         /* Reduce horizontal padding for more screen space */
