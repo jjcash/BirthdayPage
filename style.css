@@ -290,3 +290,73 @@ h1, h2, h3 {
         font-size: 1.2em;
     }
 }
+
+.scroll-section.external-links {
+    /* Center the heading and button group */
+    align-items: center;
+    text-align: center;
+    min-height: 50vh; /* Make this section shorter, as it's just buttons */
+}
+
+.scroll-section.external-links h2 {
+    margin-bottom: 10px;
+}
+
+.scroll-section.external-links p {
+    margin-bottom: 40px;
+    font-size: 1.1em;
+}
+
+.button-group {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    flex-wrap: wrap; /* Allow buttons to wrap onto the next line on smaller screens */
+    justify-content: center;
+    gap: 20px; /* Space between the buttons */
+    max-width: 900px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Styling for the individual external links/buttons */
+.external-button {
+    /* Style consistency */
+    display: inline-block;
+    padding: 12px 25px;
+    
+    /* Colors from your theme */
+    background-color: #F8BBD0; /* Accent Pink */
+    color: white; 
+    
+    /* Text and border cleanup */
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'Quicksand', sans-serif; /* Consistency with headings */
+    font-weight: 700;
+    
+    /* Hover effect */
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.external-button:hover {
+    background-color: #E9A8C1;
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   3. MOBILE RESPONSIVENESS (Media Query)
+   ========================================= */
+
+@media (max-width: 768px) {
+    .button-group {
+        /* On mobile, stack buttons more efficiently */
+        flex-direction: column; 
+        gap: 15px;
+    }
+    
+    .external-button {
+        width: 80%; /* Ensure buttons take up most of the screen width */
+        margin: 0 auto;
+        padding: 15px; /* Make them larger for easier tapping */
+    }
+}
